@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+    }
+    .card {
+      width: 300px;
+      height: auto;
+      margin: 20px;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: linear-gradient(to right, rgba(95, 249, 223, 0.543), rgba(236, 54, 236, 0.624));
+      border-radius: 10px;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.156);
+    }
+    img {
+      margin: 10px auto;
+      max-width: 100%;
+      height: auto;
+      mix-blend-mode: multiply;
+    }
+    button {
+      margin: 20px auto;
+      width: 150px;
+      padding: 10px;
+      text-align: center;
+      border: none;
+      border-radius: 20px;
+      color: rgb(15, 15, 15);
+      background-color: rgba(151, 8, 8, 0.455);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      color: rgba(160, 213, 37, 0.9);
+      background-color: rgb(16, 15, 15);
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    </style>
+</head>
+<body>
+    <button onclick="getRecords(Books)">Get Data</button>
+    <div id="container"></div>
+    <script>
+        const Books=[
+            {
+                id:1,
+                name:"Onyx Storm" ,
+                Author:"Rebecca Yarros",
+                price:500,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS6z4uv1Fse_ElO-ASQrAQVWiprZxHocKpskXcHGIepuhOB_oeA",
+            },
+            {
+                id:2,
+                name:"Dream Count" ,
+                Author:"Chimamanda Ngozi Adichie",
+                price:200,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTf2LBGnV-wKL-InVuuA0pfVOsQhRqgjGiVNiyxDu48VpLooWLb",
+            },
+            {
+                id:3,
+                name:"Three Days in June: A Novel" ,
+                Author:"Anne Tyler",
+                price:300,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQrO7yjNcw9BGwZmhbYl1l6NiDynXWq8fGLKAvFNk8SRYnYyNLZ",
+            },
+            {
+                id:4,
+                name:"Atmosphere: A Love Story" ,
+                Author:"Taylor Jenkins Reid",
+                price:500,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvX8ao7Q0POi6NehhMeRnMkF0NZa6gWXgZMul7YbD-6dFi8qEd",
+            },
+            {
+                id:5,
+                name:"Atomic Habits" ,
+                Author:" James Clear",
+                price:500,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQYfnMOTORZdZTYo-HkP-wr-heRRWwmg9zJ6bBAiQRUDahrsne3",
+            },
+            {
+                id:6,
+                name:"We All Live Here" ,
+                Author:"Jojo Moyes",
+                price:400,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSwUZEYhUUmR-wDcFkUqrYbXGgVm5VG3GAcUSAYWC5a61sFIVxa",
+            },
+            {
+                id:7,
+                name:"Too Good To Be True" ,
+                Author:"Prajakta Koli",
+                price:1500,
+                isPermanent: true,
+                imageurl:"data:image/jpeg;base64,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",
+            },
+            {
+                id:8,
+                name:"I Don't Love You Anymore" ,
+                Author:" Rithvik Singh",
+                price:100,
+                isPermanent: true,
+                imageurl:"https://99bookstores.com/cdn/shop/files/WhatsAppImage2024-05-01at3.49.29PM.jpg?v=1714558933",
+            },
+            {
+                id:9,
+                name:"Think and Grow Rich" ,
+                Author:"Napoleon Hill and Rosa Lee Beeland",
+                price:600,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHVcfQxhSgqpRsAymDDtONaq-VIzU43x5LzKjZNjVtpx25NuzK",
+            },
+            {
+                id:10,
+                name:"The Alchemist" ,
+                Author:" Paulo Coelho",
+                price:200,
+                isPermanent: true,
+                imageurl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4DIZ8zeBMCj1s7gRvHEAliiPmGukocfFUr8wElGeM73oZ2SY",
+            },
+        ];
+        
+        let flag = 0;
+
+function getRecords(data) {
+  let container = document.getElementById("container");
+
+  if (flag == 0) {
+    data.slice(0, 15).forEach((item) => {
+      let cards = document.createElement("div");
+      cards.innerHTML = `
+        <strong>ID:</strong> ${item.id} <br>
+        <strong>Name:</strong> ${item.name} <br>
+        <strong>Author:</strong> ${item.Author} <br>
+        <strong>Price:</strong> ₹${item.price} <br>
+        <img src="${item.imageurl}" alt="${item.imageurl}" height="100" width="70">`;
+
+      cards.classList.add("card");
+      container.appendChild(cards);
+    });
+
+    flag = 1;
+  } else {
+    container.innerHTML = "";
+    flag = 0;
+  }
+}
+
+    </script>
+</body>
+</html>
